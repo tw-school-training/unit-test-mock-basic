@@ -3,39 +3,41 @@ package com.tdd.kata.cash_register;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 class CashRegisterTest {
 	@Test
 	void should_process_execute_printing() {
 		//given
-		SpyPrinter spyPrinter = new SpyPrinter();
+		Printer spyPrinter = spy(new Printer());
 		CashRegister cashRegister = new CashRegister(spyPrinter);
 		Purchase purchase = new Purchase();
 		//when
 		cashRegister.process(purchase);
 		//then
-		assertTrue(spyPrinter.hasBeenCalledPrint);
+		verify(spyPrinter).print(any());
 	}
 
 	@Test
 	void should_process_execute_printing_with_purchase() {
 		//given
-		SpyPrinter spyPrinter = new SpyPrinter();
+		Printer spyPrinter = spy(new Printer());
 		CashRegister cashRegister = new CashRegister(spyPrinter);
 		final String ANY_CONTENT = "content2020-08-05T13:49:39.966861";
 		StubPurchase stubPurchase = new StubPurchase(ANY_CONTENT);
 		//when
 		cashRegister.process(stubPurchase);
 		//then
-		assertTrue(spyPrinter.hasBeenCalledPrint);
-		assertEquals(ANY_CONTENT, spyPrinter.content);
+		verify(spyPrinter).print(ANY_CONTENT);
 	}
 
 	@Test
 	void should_process_throw_exception_given_empty_purchase() {
 		//given
-		SpyPrinter spyPrinter = new SpyPrinter();
-		CashRegister cashRegister = new CashRegister(spyPrinter);
+		Printer printer = new Printer();
+		CashRegister cashRegister = new CashRegister();
 		StubPurchase stubPurchase = new StubPurchase("");
 		//when
 		//then
@@ -55,18 +57,6 @@ class CashRegisterTest {
 		@Override
 		public String asString() {
 			return stubContent;
-		}
-	}
-
-	private class SpyPrinter extends Printer {
-		public boolean hasBeenCalledPrint;
-		public String content;
-
-		@Override
-		public void print(String content) {
-			this.content = content;
-			hasBeenCalledPrint = true;
-			super.print(content);
 		}
 	}
 }
