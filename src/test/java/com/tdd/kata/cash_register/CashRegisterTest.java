@@ -31,6 +31,20 @@ class CashRegisterTest {
 		assertEquals(ANY_CONTENT, spyPrinter.content);
 	}
 
+	@Test
+	void should_process_throw_exception_given_empty_purchase() {
+		//given
+		SpyPrinter spyPrinter = new SpyPrinter();
+		CashRegister cashRegister = new CashRegister(spyPrinter);
+		StubPurchase stubPurchase = new StubPurchase("");
+		//when
+		//then
+		assertThrows(IllegalArgumentException.class, () -> {
+			cashRegister.process(stubPurchase);
+		});
+	}
+
+
 	private class StubPurchase extends Purchase {
 		private String stubContent;
 
