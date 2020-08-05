@@ -8,13 +8,22 @@ class CashRegisterTest {
 	@Test
 	void should_process_execute_printing() {
 		//given
-		Printer printer = new Printer();
-		CashRegister cashRegister = new CashRegister(printer);
+		SpyPrinter spyPrinter = new SpyPrinter();
+		CashRegister cashRegister = new CashRegister(spyPrinter);
 		Purchase purchase = new Purchase();
 		//when
 		cashRegister.process(purchase);
 		//then
-		assertTrue(printer.hasBeenCalledPrint);
+		assertTrue(spyPrinter.hasBeenCalledPrint);
 	}
 
+	private class SpyPrinter extends Printer {
+		public boolean hasBeenCalledPrint;
+
+		@Override
+		public void print(String content) {
+			hasBeenCalledPrint = true;
+			super.print(content);
+		}
+	}
 }
