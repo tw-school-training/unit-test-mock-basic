@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
 class CashRegisterTest {
 	@Test
@@ -26,7 +26,8 @@ class CashRegisterTest {
 		Printer spyPrinter = spy(new Printer());
 		CashRegister cashRegister = new CashRegister(spyPrinter);
 		final String ANY_CONTENT = "content2020-08-05T13:49:39.966861";
-		StubPurchase stubPurchase = new StubPurchase(ANY_CONTENT);
+		Purchase stubPurchase = mock(Purchase.class);
+		given(stubPurchase.asString()).willReturn(ANY_CONTENT);
 		//when
 		cashRegister.process(stubPurchase);
 		//then
@@ -38,7 +39,8 @@ class CashRegisterTest {
 		//given
 		Printer printer = new Printer();
 		CashRegister cashRegister = new CashRegister();
-		StubPurchase stubPurchase = new StubPurchase("");
+		Purchase stubPurchase = mock(Purchase.class);
+		given(stubPurchase.asString()).willReturn("");
 		//when
 		//then
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -46,17 +48,4 @@ class CashRegisterTest {
 		});
 	}
 
-
-	private class StubPurchase extends Purchase {
-		private String stubContent;
-
-		private StubPurchase(String stubContent) {
-			this.stubContent = stubContent;
-		}
-
-		@Override
-		public String asString() {
-			return stubContent;
-		}
-	}
 }
