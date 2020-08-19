@@ -1,12 +1,10 @@
 package com.tdd.kata.cash_register;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class CashRegisterTest {
+public class CashRegisterTest {
 	@Test
-	void should_process_execute_printing() {
+	public void should_process_execute_printing() {
 		//given
 		CashRegister cashRegister = new CashRegister();
 		Purchase purchase = new Purchase();
