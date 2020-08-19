@@ -20,3 +20,6 @@ gradle-app.setting
 
 # Misc
 *.log
+
+.DS_Store
+target/
