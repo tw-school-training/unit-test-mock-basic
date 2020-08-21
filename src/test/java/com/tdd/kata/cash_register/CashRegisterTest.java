@@ -8,7 +8,7 @@ import static org.mockito.Mockito.*;
 
 public class CashRegisterTest {
     @Test
-    public void should_process_execute_printing() {
+    public void should_trigger_print_when_process_given_printer_to_cash_register() {
         //given
         Printer spyPrinter = spy(new Printer());
         CashRegister cashRegister = new CashRegister(spyPrinter);
@@ -20,7 +20,7 @@ public class CashRegisterTest {
     }
 
     @Test
-    public void should_process_execute_printing_with_purchase() {
+    public void should_trigger_print_with_purchase_content_when_process_given_printer_and_purchase_content() {
         //given
         Printer spyPrinter = spy(new Printer());
         CashRegister cashRegister = new CashRegister(spyPrinter);
@@ -34,7 +34,7 @@ public class CashRegisterTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void should_process_throw_exception_given_empty_purchase() {
+    public void should_throw_exception_when_process_given_empty_purchase() {
         //given
         Printer printer = new Printer();
         CashRegister cashRegister = new CashRegister();
