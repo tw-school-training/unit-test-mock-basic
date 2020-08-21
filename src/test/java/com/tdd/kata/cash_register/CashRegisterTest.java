@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 public class CashRegisterTest {
     @Test
-    public void should_process_execute_printing() {
+    public void should_trigger_print_when_process_given_printer_to_cash_register() {
         //given
         SpyPrinter spyPrinter = new SpyPrinter();
         CashRegister cashRegister = new CashRegister(spyPrinter);
@@ -19,7 +19,7 @@ public class CashRegisterTest {
     }
 
     @Test
-    public void should_process_execute_printing_with_purchase() {
+    public void should_trigger_print_with_purchase_content_when_process_given_printer_and_purchase_content() {
         //given
         SpyPrinter spyPrinter = new SpyPrinter();
         CashRegister cashRegister = new CashRegister(spyPrinter);
@@ -33,7 +33,7 @@ public class CashRegisterTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void should_process_throw_exception_given_empty_purchase() {
+    public void should_throw_exception_when_process_given_empty_purchase() {
         //given
         SpyPrinter spyPrinter = new SpyPrinter();
         CashRegister cashRegister = new CashRegister(spyPrinter);
